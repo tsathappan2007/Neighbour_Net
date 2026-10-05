@@ -47,6 +47,8 @@ public class NeighbourNet {
     private static TaskService taskService;
     private static TaskDispatcher taskDispatcher;
 
+    private static services.WebServer webServer;
+
     /**
      * Application main method. Sets up database, launches services, runs UI loop.
      *
@@ -108,10 +110,37 @@ public class NeighbourNet {
         // Task handling and routing dispatcher (Unit 2 Pattern Matching)
         taskDispatcher = new TaskDispatcher();
 
+        // 5. Start Web Server
+        try {
+            webServer = new services.WebServer(
+                8080,
+                userRepository,
+                taskRegistry,
+                trustEngine,
+                interThreadComm,
+                matchingEngine,
+                notificationService,
+                taskDispatcher,
+                proofStore
+            );
+            webServer.start();
+            
+            // Try opening default browser
+            try {
+                if (java.awt.Desktop.isDesktopSupported() && java.awt.Desktop.getDesktop().isSupported(java.awt.Desktop.Action.BROWSE)) {
+                    java.awt.Desktop.getDesktop().browse(new java.net.URI("http://localhost:" + webServer.getPort()));
+                }
+            } catch (Throwable ignored) {
+                // Headless or non-desktop environment
+            }
+        } catch (Exception e) {
+            System.err.println("Failed to start web server: " + e.getMessage());
+        }
+
         System.out.println("NeighbourNet Hyperlocal Exchange is online!");
         FileLogger.getInstance().log("SYSTEM", "STARTUP", "NeighbourNet application started successfully.");
 
-        // 5. User Input CLI Loop
+        // 6. User Input CLI Loop
         boolean running = true;
         while (running) {
             ui.displayMenu();
@@ -133,7 +162,10 @@ public class NeighbourNet {
             }
         }
 
-        // 6. Graceful Shutdown & Connections Release
+        // 7. Graceful Shutdown & Connections Release
+        if (webServer != null) {
+            webServer.stop();
+        }
         interThreadComm.shutdown();
         matchingEngine.shutdown();
         DatabaseConnection.getInstance().closeConnection();

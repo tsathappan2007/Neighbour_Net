@@ -50,11 +50,8 @@ public class DatabaseConnection {
      * @return active Database Connection
      * @throws SQLException if a database access error occurs
      */
-    public synchronized Connection getConnection() throws SQLException {
-        if (connection == null || connection.isClosed()) {
-            connection = DriverManager.getConnection(DB_URL);
-        }
-        return connection;
+    public Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(DB_URL);
     }
 
     /**

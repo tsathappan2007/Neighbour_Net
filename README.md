@@ -1,17 +1,17 @@
-# NeighbourNet - Hyperlocal Task and Help Exchange System
+# NeighbourNet - Hyperlocal Task and Help Exchange System (Web & Java 21)
 
 NeighbourNet is a hyperlocal peer-to-peer micro-task and resource-sharing platform designed for apartments and hostels. Residents can post help requests (errands, skilled tasks, borrowing tools, teaching), and nearby neighbors are matched to resolve them. The system incorporates a trust-based reputation engine that adjusts scoring dynamically after every interaction.
 
-The system is built as a complete, production-ready, console-based Java 21 application. It demonstrates all five units of a standard advanced Java programming curriculum end-to-end.
+The application includes both an **interactive modern web application** (`http://localhost:8080`) and a complete **Java 21 backend server** demonstrating all five units of an advanced Java programming curriculum.
 
 ---
 
 ## Technical Stack & Architecture
 
-- **Language:** Java 21 (uses switch pattern matching, guard clauses, record-like patterns)
-- **Database:** SQLite (file-based relational database stored in [neighbournet.db](file:///c:/Users/S.M.Suhail%20Akthar/Desktop/Documents/CIT%20Chennai/Projects/NeighborNet/data/neighbournet.db))
+- **Frontend:** Modern Single-Page Application (HTML5, Vanilla CSS Design System with Plus Jakarta Sans typography and HSL color-coding, JavaScript ES6+ state management).
+- **Backend & Web Server:** Java 21 embedded `HttpServer` (zero external dependencies) providing RESTful JSON endpoints.
+- **Database:** SQLite (file-based relational database stored in `data/neighbournet.db`)
 - **JDBC Driver:** SQLite JDBC (stored in `lib/`)
-- **No external frameworks:** Built entirely using the Java Standard Library and native JDBC.
 - **Design Pattern:** Data Access Object (DAO) pattern separating data access from services and core models.
 
 ---
@@ -22,41 +22,32 @@ The following table lists the five Java course units and points to the specific 
 
 | Java Unit | Topics Covered | Key File Reference | Implementation Detail |
 | :--- | :--- | :--- | :--- |
-| **Unit 1** | OOP, Encap, Functional Programming, Streams | [User.java](file:///c:/Users/S.M.Suhail%20Akthar/Desktop/Documents/CIT%20Chennai/Projects/NeighborNet/src/models/User.java) <br> [TaskHandler.java](file:///c:/Users/S.M.Suhail%20Akthar/Desktop/Documents/CIT%20Chennai/Projects/NeighborNet/src/handlers/TaskHandler.java) <br> [TaskService.java](file:///c:/Users/S.M.Suhail%20Akthar/Desktop/Documents/CIT%20Chennai/Projects/NeighborNet/src/services/TaskService.java) | Private fields & getters; `@FunctionalInterface` lambda targets; Streams API to filter tasks, map elements, and run parallelStream matching. |
-| **Unit 2** | Inheritance, Interfaces, Pattern Matching | [TaskHandler.java](file:///c:/Users/S.M.Suhail%20Akthar/Desktop/Documents/CIT%20Chennai/Projects/NeighborNet/src/handlers/TaskHandler.java) <br> [ErrandHandler.java](file:///c:/Users/S.M.Suhail%20Akthar/Desktop/Documents/CIT%20Chennai/Projects/NeighborNet/src/handlers/ErrandHandler.java) <br> [CompletableTask.java](file:///c:/Users/S.M.Suhail%20Akthar/Desktop/Documents/CIT%20Chennai/Projects/NeighborNet/src/handlers/CompletableTask.java) <br> [TaskDispatcher.java](file:///c:/Users/S.M.Suhail%20Akthar/Desktop/Documents/CIT%20Chennai/Projects/NeighborNet/src/handlers/TaskDispatcher.java) | Polymorphic task category validation; CompletableTask behavior modeling; Java 21 Switch Pattern Matching over Object Types (`Task`) with `when` guard clauses. |
-| **Unit 3** | Custom Exceptions & I/O Streams | [InsufficientTrustException.java](file:///c:/Users/S.M.Suhail%20Akthar/Desktop/Documents/CIT%20Chennai/Projects/NeighborNet/src/exceptions/InsufficientTrustException.java) <br> [FileLogger.java](file:///c:/Users/S.M.Suhail%20Akthar/Desktop/Documents/CIT%20Chennai/Projects/NeighborNet/src/services/FileLogger.java) <br> [DataExporter.java](file:///c:/Users/S.M.Suhail%20Akthar/Desktop/Documents/CIT%20Chennai/Projects/NeighborNet/src/services/DataExporter.java) <br> [ConsoleUI.java](file:///c:/Users/S.M.Suhail%20Akthar/Desktop/Documents/CIT%20Chennai/Projects/NeighborNet/src/ui/ConsoleUI.java) | Specialized typed custom exceptions; `BufferedReader` console scanning; `FileWriter`, `BufferedWriter`, and `PrintWriter` for logger file creation and CSV data exporter. |
-| **Unit 4** | Generics, Multi-threading & Concurrency | [TrustEngine.java](file:///c:/Users/S.M.Suhail%20Akthar/Desktop/Documents/CIT%20Chennai/Projects/NeighborNet/src/services/TrustEngine.java) <br> [NotificationService.java](file:///c:/Users/S.M.Suhail%20Akthar/Desktop/Documents/CIT%20Chennai/Projects/NeighborNet/src/services/NotificationService.java) <br> [TaskMatchingEngine.java](file:///c:/Users/S.M.Suhail%20Akthar/Desktop/Documents/CIT%20Chennai/Projects/NeighborNet/src/services/TaskMatchingEngine.java) <br> [InterThreadCommunication.java](file:///c:/Users/S.M.Suhail%20Akthar/Desktop/Documents/CIT%20Chennai/Projects/NeighborNet/src/services/InterThreadCommunication.java) | Generic class `<T extends User>` for flexible user types; Synchronized thread safety blocks; `NotificationThread` extending Thread; `ExecutorService` matching tasks in parallel; raw `wait`/`notifyAll` message queue consumer. |
-| **Unit 5** | Java Collections Framework & JDBC | [TaskRegistry.java](file:///c:/Users/S.M.Suhail%20Akthar/Desktop/Documents/CIT%20Chennai/Projects/NeighborNet/src/services/TaskRegistry.java) <br> [TrustScoreCache.java](file:///c:/Users/S.M.Suhail%20Akthar/Desktop/Documents/CIT%20Chennai/Projects/NeighborNet/src/services/TrustScoreCache.java) <br> [DatabaseConnection.java](file:///c:/Users/S.M.Suhail%20Akthar/Desktop/Documents/CIT%20Chennai/Projects/NeighborNet/src/persistence/DatabaseConnection.java) <br> [UserDAO.java](file:///c:/Users/S.M.Suhail%20Akthar/Desktop/Documents/CIT%20Chennai/Projects/NeighborNet/src/persistence/UserDAO.java) | `LinkedHashSet` preserving task insertion FIFO order; `ConcurrentHashMap` caching scores; `ArrayList` database synchronization cache; Singleton Database Connection; CRUD JDBC PreparedStatements and ResultSets mapping. |
+| **Unit 1** | OOP, Encap, Functional Programming, Streams | [User.java](file:///c:/Users/User/projects/Neighbour_Net/src/models/User.java) <br> [TaskHandler.java](file:///c:/Users/User/projects/Neighbour_Net/src/handlers/TaskHandler.java) <br> [TaskService.java](file:///c:/Users/User/projects/Neighbour_Net/src/services/TaskService.java) | Private fields & getters; `@FunctionalInterface` lambda targets; Streams API to filter tasks, map elements, and run parallelStream matching. |
+| **Unit 2** | Inheritance, Interfaces, Pattern Matching | [TaskHandler.java](file:///c:/Users/User/projects/Neighbour_Net/src/handlers/TaskHandler.java) <br> [ErrandHandler.java](file:///c:/Users/User/projects/Neighbour_Net/src/handlers/ErrandHandler.java) <br> [CompletableTask.java](file:///c:/Users/User/projects/Neighbour_Net/src/handlers/CompletableTask.java) <br> [TaskDispatcher.java](file:///c:/Users/User/projects/Neighbour_Net/src/handlers/TaskDispatcher.java) | Polymorphic task category validation; CompletableTask behavior modeling; Java 21 Switch Pattern Matching over Object Types (`Task`) with `when` guard clauses. |
+| **Unit 3** | Custom Exceptions & I/O Streams | [InsufficientTrustException.java](file:///c:/Users/User/projects/Neighbour_Net/src/exceptions/InsufficientTrustException.java) <br> [FileLogger.java](file:///c:/Users/User/projects/Neighbour_Net/src/services/FileLogger.java) <br> [DataExporter.java](file:///c:/Users/User/projects/Neighbour_Net/src/services/DataExporter.java) <br> [WebServer.java](file:///c:/Users/User/projects/Neighbour_Net/src/services/WebServer.java) | Specialized typed custom exceptions; `BufferedReader` scanning; `FileWriter`, `BufferedWriter`, and `PrintWriter` for logger file creation and CSV data stream exporter. |
+| **Unit 4** | Generics, Multi-threading & Concurrency | [TrustEngine.java](file:///c:/Users/User/projects/Neighbour_Net/src/services/TrustEngine.java) <br> [NotificationService.java](file:///c:/Users/User/projects/Neighbour_Net/src/services/NotificationService.java) <br> [TaskMatchingEngine.java](file:///c:/Users/User/projects/Neighbour_Net/src/services/TaskMatchingEngine.java) <br> [InterThreadCommunication.java](file:///c:/Users/User/projects/Neighbour_Net/src/services/InterThreadCommunication.java) | Generic class `<T extends User>` for flexible user types; Synchronized thread safety blocks; `NotificationThread` extending Thread; `ExecutorService` matching tasks in parallel; raw `wait`/`notifyAll` message queue consumer. |
+| **Unit 5** | Java Collections Framework & JDBC | [TaskRegistry.java](file:///c:/Users/User/projects/Neighbour_Net/src/services/TaskRegistry.java) <br> [TrustScoreCache.java](file:///c:/Users/User/projects/Neighbour_Net/src/services/TrustScoreCache.java) <br> [DatabaseConnection.java](file:///c:/Users/User/projects/Neighbour_Net/src/persistence/DatabaseConnection.java) <br> [UserDAO.java](file:///c:/Users/User/projects/Neighbour_Net/src/persistence/UserDAO.java) | `LinkedHashSet` preserving task insertion FIFO order; `ConcurrentHashMap` caching scores; `ArrayList` database synchronization cache; Singleton Database Connection; CRUD JDBC PreparedStatements and ResultSets mapping. |
 
 ---
 
-## How to Compile and Run
-
-### Prerequisites
-- JDK 21 or higher installed and added to your system's `PATH`.
+## How to Run
 
 ### Option A: Using the Launch Script (Windows)
-Double-click [run.bat](file:///c:/Users/S.M.Suhail%20Akthar/Desktop/Documents/CIT%20Chennai/Projects/NeighborNet/run.bat) or run it in Command Prompt:
+Double-click [run.bat](file:///c:/Users/User/projects/Neighbour_Net/run.bat) or run it in Command Prompt:
 ```cmd
 run.bat
 ```
-This script cleans the build directory, compiles all source code including the SQLite JAR in the classpath, and launches the application.
+This script compiles all source files and automatically launches the web application at **`http://localhost:8080`**.
 
-### Option B: Compiling and Running Manually via Command Line
-Run the following commands in the root workspace directory:
+### Option B: Compiling and Running Manually
+```bash
+# 1. Compile
+javac -d bin -cp "lib/*" src/models/*.java src/exceptions/*.java src/handlers/*.java src/persistence/*.java src/services/*.java src/ui/*.java src/NeighbourNet.java
 
-1. **Compile:**
-   ```bash
-   mkdir bin
-   javac -d bin -cp "lib/*" src/models/*.java src/exceptions/*.java src/handlers/*.java src/persistence/*.java src/services/*.java src/ui/*.java src/NeighbourNet.java
-   ```
-
-2. **Run:**
-   ```bash
-   java -cp "bin;lib/*" NeighbourNet
-   ```
-
----
+# 2. Run
+java -cp "bin;lib/*" NeighbourNet
+```
+Open **`http://localhost:8080`** in your browser.
 
 ## Demo Walkthrough Guide (Deterministic Review Scenario)
 

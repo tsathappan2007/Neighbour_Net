@@ -63,7 +63,7 @@ public class TaskDAO {
      * Returns all tasks.
      */
     public List<Task> findAll() throws SQLException {
-        String sql = "SELECT * FROM tasks";
+        String sql = "SELECT * FROM tasks ORDER BY datetime(created_at) DESC, task_id DESC";
         List<Task> list = new ArrayList<>();
         try (Connection conn = dbConn.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
